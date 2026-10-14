@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE ICT - Magnetic Storage Devices Quiz (Shuffled Answers)</title>
+    <style>
+        :root {
+            --bg-main: #090d16;
+            --bg-card: #131d31;
+            --border-color: #223354;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        header h1 {
+            color: var(--accent);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .quiz-status {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .score-pill {
+            background-color: #0c4a6e;
+            color: #7dd3fc;
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #0284c7;
+        }
+
+        .card {
+            width: 100%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            width: 100%;
+            text-align: left;
+            background-color: #1e293b;
+            color: var(--text-main);
+            padding: 1rem 1.25rem;
+            border-radius: 0.85rem;
+            border: 1px solid #334155;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #283548;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .option-btn.correct {
+            background-color: #064e3b !important;
+            border-color: #059669 !important;
+            color: #ecfdf5 !important;
+        }
+
+        .option-btn.incorrect {
+            background-color: #7f1d1d !important;
+            border-color: #dc2626 !important;
+            color: #fee2e2 !important;
+        }
+
+        .feedback-box {
+            padding: 1.15rem;
+            border-radius: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .feedback-box.correct-feedback {
+            background-color: #022c22;
+            border: 1px solid #047857;
+            color: #a7f3d0;
+        }
+
+        .feedback-box.incorrect-feedback {
+            background-color: #450a0a;
+            border: 1px solid #b91c1c;
+            color: #fecdd3;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.85rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .results-card {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .results-card h2 {
+            font-size: 2.25rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .results-card p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>IGCSE ICT Practice Quiz</h1>
+        <p>Topic 3.1 Magnetic Media & Storage Devices (Tapes, HDDs, Portable HDDs)</p>
+    </header>
+
+    <main>
+        <div class="quiz-status">
+            <span id="question-counter">Question 1 of 30</span>
+            <span id="score-display" class="score-pill">Score: 0</span>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="card">
+            <div id="question-box" class="question-text">
+                Loading question...
+            </div>
+
+            <div id="options-container" class="options-list">
+                <!-- Options populated dynamically -->
+            </div>
+
+            <div id="feedback-box" class="feedback-box hidden">
+                <!-- Feedback populated dynamically -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end;">
+                <button id="next-btn" onclick="nextQuestion()" class="btn-primary hidden">Next Question</button>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results-container" class="card results-card hidden">
+            <h2>Quiz Completed! 🎉</h2>
+            <p id="final-score">You scored X out of 30</p>
+            <button onclick="restartQuiz()" class="btn-primary">Restart Quiz</button>
+        </div>
+    </main>
+
+    <footer>
+        IGCSE ICT Revision &bull; Magnetic Storage Media
+    </footer>
+
+    <script>
+        const questions = [
+            // General Magnetic Media & 3.1.1 Magnetic Tape (1 to 10)
+            {
+                question: "How do magnetic storage media (such as HDDs and magnetic tape) store digital data fundamentally?",
+                options: [
+                    { text: "By using localized magnetic fields (magnetized and demagnetized areas representing binary 1s and 0s) on a magnetic iron oxide coating", isCorrect: true, rationale: "Magnetic storage relies on altering and reading the magnetic states of iron oxide particles to represent binary data." },
+                    { text: "By burning microscopic pits and lands onto plastic discs using laser beams", isCorrect: false, rationale: "This describes optical media like CDs and DVDs." },
+                    { text: "By controlling the movement of electrons within solid-state NAND flash memory gates", isCorrect: false, rationale: "This describes solid-state drives (SSDs)." },
+                    { text: "By pressing metal pins against carbon-copy paper ribbons", isCorrect: false, rationale: "This describes impact dot-matrix printing." }
+                ]
+            },
+            {
+                question: "What is the physical structure of magnetic tape used in tape drives?",
+                options: [
+                    { text: "A thin strip of plastic coated in a magnetic iron oxide layer, wound onto spools inside a protective cartridge", isCorrect: true, rationale: "Magnetic tape consists of a plastic ribbon coated with magnetic material stored on spools." },
+                    { text: "A rigid circular aluminium platter spinning rapidly on a central spindle", isCorrect: false, rationale: "This describes hard disk platters." },
+                    { text: "A silicon microchip containing billions of microscopic transistors", isCorrect: false, rationale: "This describes RAM or flash memory." },
+                    { text: "A transparent polycarbonate disc read by infrared lasers", isCorrect: false, rationale: "This describes optical discs." }
+                ]
+            },
+            {
+                question: "What type of data access method does magnetic tape use?",
+                options: [
+                    { text: "Serial (or sequential) access, meaning data must be read one piece after another from the beginning of the tape", isCorrect: true, rationale: "Magnetic tape stores data in a long sequential line, requiring the tape to wind past the head serially to find files." },
+                    { text: "Direct (random) access with instant seek times to any sector", isCorrect: false, rationale: "Direct access is a feature of hard disk drives, not magnetic tape." },
+                    { text: "Volatile semiconductor caching access", isCorrect: false, rationale: "This is RAM memory." },
+                    { text: "Wireless radio frequency broadcast access", isCorrect: false, rationale: "This is RFID technology." }
+                ]
+            },
+            {
+                question: "What are the typical real-world uses of magnetic tape drives and cartridges?",
+                options: [
+                    { text: "Heavy enterprise data archiving, long-term backup storage, and batch processing applications where fast access is unnecessary", isCorrect: true, rationale: "Magnetic tape is ideal for massive long-term vault backups and batch processing (e.g., payroll generation)." },
+                    { text: "Running real-time online video streaming servers", isCorrect: false, rationale: "Streaming requires fast direct access, making tape unsuitable." },
+                    { text: "Acting as primary internal storage for smartphones and tablets", isCorrect: false, rationale: "Phones use internal flash solid-state storage." },
+                    { text: "Displaying graphical operating system user interfaces", isCorrect: false, rationale: "Displays use monitors." }
+                ]
+            },
+            {
+                question: "What is a major advantage of magnetic tape storage?",
+                options: [
+                    { text: "Extremely massive storage capacities and very low cost per gigabyte compared to HDDs or SSDs", isCorrect: true, rationale: "Tape offers exceptionally high capacity at a very cheap cost per byte for bulk data archiving." },
+                    { text: "Extremely fast direct data access speeds under 0.1 milliseconds", isCorrect: false, rationale: "Tape access times are very slow due to sequential winding." },
+                    { text: "Immunity to strong external magnetic fields", isCorrect: false, rationale: "Strong magnetic fields can corrupt data stored on magnetic media." },
+                    { text: "Ability to fit inside a pocket like a USB flash drive", isCorrect: false, rationale: "Tape cartridges require specialized drive hardware units." }
+                ]
+            },
+            {
+                question: "What is a major disadvantage of magnetic tape storage?",
+                options: [
+                    { text: "Very slow data access times because the tape must be wound serially to locate specific files", isCorrect: true, rationale: "Finding specific data on a tape can take significant time as it has to fast-forward through preceding data." },
+                    { text: "It can only store up to 5 kilobytes of total data", isCorrect: false, rationale: "Tape capacities are massive, reaching hundreds of terabytes." },
+                    { text: "It requires permanent continuous mains electricity to retain data", isCorrect: false, rationale: "Tape is non-volatile and consumes zero power when stored in a vault." },
+                    { text: "It prints hard-copy documents onto paper", isCorrect: false, rationale: "Tape is a storage medium, not a printer." }
+                ]
+            },
+            {
+                question: "Why is magnetic tape well-suited for 'batch processing' operations (such as clearing bank checks or processing utility bills)?",
+                options: [
+                    { text: "Because batch jobs process large blocks of sequential records in order without needing random file access", isCorrect: true, rationale: "Batch processing handles sorted records sequentially, matching how magnetic tape reads data efficiently." },
+                    { text: "Because magnetic tape connects wirelessly via Bluetooth to smartphones", isCorrect: false, rationale: "Tape drives connect to enterprise computer mainframes via specialized interfaces." },
+                    { text: "Because tape drives have built-in color inkjet printing nozzles", isCorrect: false, rationale: "Tape drives do not print." },
+                    { text: "Because tape drives display high-definition 3D video graphics", isCorrect: false, rationale: "This is unrelated." }
+                ]
+            },
+            {
+                question: "What potential environmental hazard can corrupt data stored on magnetic tape or HDDs?",
+                options: [
+                    { text: "Strong external magnetic fields (such as powerful magnets)", isCorrect: true, rationale: "Magnetic media store data via magnetic polarization, so strong external magnets can scramble and corrupt the stored bits." },
+                    { text: "Exposure to complete darkness", isCorrect: false, rationale: "Darkness does not affect magnetism." },
+                    { text: "High humidity levels in water-cooled server rooms", isCorrect: false, rationale: "While moisture can rust components, magnetic corruption is specifically caused by magnetic fields." },
+                    { text: "Low room temperature", isCorrect: false, rationale: "Cold temperatures generally preserve magnetic media well." }
+                ]
+            },
+            {
+                question: "How does a read/write head interact with magnetic tape during operation?",
+                options: [
+                    { text: "The tape moves across a stationary read/write head to magnetize or sense magnetic spots on the tape coating", isCorrect: true, rationale: "In tape drives, the tape moves past fixed read/write heads (unlike HDDs where heads move across spinning platters)." },
+                    { text: "The head spins rapidly while the tape remains completely stationary", isCorrect: false, rationale: "The tape moves while the head stays positioned." },
+                    { text: "The head shoots blue laser beams into optical pits", isCorrect: false, rationale: "This is optical media." },
+                    { text: "The head punches physical holes into paper punch cards", isCorrect: false, rationale: "This describes old punch card systems." }
+                ]
+            },
+            {
+                question: "What distinguishes magnetic tape storage media from solid-state storage media?",
+                options: [
+                    { text: "Magnetic tape relies on magnetic properties and moving parts (tape winding), whereas solid-state media has no moving parts and uses electronic NAND chips", isCorrect: true, rationale: "Tape uses mechanical reels and magnetism, while SSDs use electronic semiconductors with zero moving parts." },
+                    { text: "Magnetic tape is volatile, whereas solid-state memory is non-volatile", isCorrect: false, rationale: "Both magnetic tape and SSDs are non-volatile backing storage." },
+                    { text: "Magnetic tape connects via USB to digital cameras", isCorrect: false, rationale: "Cameras use SD memory cards." },
+                    { text: "There is no difference between them", isCorrect: false, rationale: "They use entirely different underlying technologies." }
+                ]
+            },
+
+            // 3.1.2 Hard Disk Drives (HDD) (11 to 20)
+            {
+                question: "What is the physical internal structure of a fixed Hard Disk Drive (HDD)?",
+                options: [
+                    { text: "Several rigid circular platters made of aluminium, glass, or ceramic, coated with magnetic material and spinning rapidly on a central spindle", isCorrect: true, rationale: "HDDs contain stacked magnetic platters that spin at high speeds (e.g., 7,200 to 10,000 RPM)." },
+                    { text: "A flexible plastic ribbon wound onto twin tape spools", isCorrect: false, rationale: "This describes magnetic tape." },
+                    { text: "A collection of silicon flash memory NAND logic gates", isCorrect: false, rationale: "This describes solid-state drives." },
+                    { text: "A polycarbonate plastic disc with spiral optical tracks", isCorrect: false, rationale: "This describes optical discs." }
+                ]
+            },
+            {
+                question: "How do electromagnetic read/write heads access data on HDD platters?",
+                options: [
+                    { text: "They are mounted on an actuator arm that swings back and forth across the spinning platter surfaces to read or write data", isCorrect: true, rationale: "An actuator arm moves the read/write heads rapidly across the top and bottom surfaces of the platters." },
+                    { text: "They stay completely stationary while the read heads burn laser pits", isCorrect: false, rationale: "Laser pits are optical, and HDD heads move back and forth." },
+                    { text: "They transmit radio frequency waves to remote cloud servers", isCorrect: false, rationale: "HDDs are local storage devices." },
+                    { text: "They press metal pins against inked carbon ribbons", isCorrect: false, rationale: "This is dot-matrix printing." }
+                ]
+            },
+            {
+                question: "How is data structured and organized on the surface of an HDD platter?",
+                options: [
+                    { text: "Organized into concentric circular tracks, which are further divided into smaller wedges called sectors", isCorrect: true, rationale: "HDD platters are formatted into concentric tracks and sectors for precise data addressing." },
+                    { text: "Organized into a single long continuous spiral line from start to finish", isCorrect: false, rationale: "A single spiral line is used in optical discs (CD/DVD), not HDDs." },
+                    { text: "Organized into hierarchical folders and subdirectories without physical tracks", isCorrect: false, rationale: "Folders are OS abstractions; physical HDD storage uses tracks and sectors." },
+                    { text: "Organized into random unformatted memory clusters", isCorrect: false, rationale: "Disks must be formatted into tracks and sectors." }
+                ]
+            },
+            {
+                question: "What is the File Allocation Table (FAT) on a hard disk drive?",
+                options: [
+                    { text: "A map or directory created during formatting that tells the read/write head exactly which sector contains the required data", isCorrect: true, rationale: "The FAT acts as a roadmap for the HDD, recording where files are stored across tracks and sectors." },
+                    { text: "A physical table that supports the weight of the hard drive inside the computer", isCorrect: false, rationale: "FAT is a software file system map, not physical furniture." },
+                    { text: "An internal power supply unit supplying electrical voltage", isCorrect: false, rationale: "Power is supplied by the PSU." },
+                    { text: "A graphics rendering chip for 3D gaming", isCorrect: false, rationale: "This describes a GPU." }
+                ]
+            },
+            {
+                question: "What is 'latency' in the context of hard disk drives?",
+                options: [
+                    { text: "The specific delay time taken for the correct sector on a spinning disk track to rotate around to the read/write head", isCorrect: true, rationale: "Rotational latency is the waiting time for the required disk sector to spin underneath the read head." },
+                    { text: "The speed at which files are downloaded over broadband internet", isCorrect: false, rationale: "This is internet download bandwidth." },
+                    { text: "The time it takes for a user to click a mouse button", isCorrect: false, rationale: "This is input latency." },
+                    { text: "The battery charging time for portable laptops", isCorrect: false, rationale: "This is charging time." }
+                ]
+            },
+            {
+                question: "What are the typical real-world uses of fixed Hard Disk Drives (HDDs)?",
+                options: [
+                    { text: "Serving as the primary internal backing store on desktop computers and network servers for operating systems, applications, and user files", isCorrect: true, rationale: "Fixed HDDs provide high-capacity primary storage for OS, software, and large working files." },
+                    { text: "Printing architectural blueprints onto paper rolls", isCorrect: false, rationale: "Blueprints are printed by plotters." },
+                    { text: "Scanning multiple-choice exam answer sheets", isCorrect: false, rationale: "Exam marking uses OMR scanners." },
+                    { text: "Capturing room air temperature readings", isCorrect: false, rationale: "This uses sensors." }
+                ]
+            },
+            {
+                question: "What are the major advantages of fixed Hard Disk Drives?",
+                options: [
+                    { text: "Very large storage capacities, fast data transfer rates, direct data access, and low cost per gigabyte", isCorrect: true, rationale: "HDDs offer economical high-capacity storage with fast direct data access." },
+                    { text: "Absolute immunity to physical damage when dropped from high buildings", isCorrect: false, rationale: "HDDs contain delicate moving parts and are fragile if dropped." },
+                    { text: "Zero power consumption and zero heat generation", isCorrect: false, rationale: "Spinning platters consume power and generate heat." },
+                    { text: "Inability to store operating system files", isCorrect: false, rationale: "HDDs are standard OS storage drives." }
+                ]
+            },
+            {
+                question: "What are the major disadvantages of fixed Hard Disk Drives?",
+                options: [
+                    { text: "They contain fragile moving parts (susceptible to damage from drops or shocks), generate noise/heat, and have slower access times than SSDs", isCorrect: true, rationale: "Moving parts make HDDs vulnerable to physical shock ('head crash') and mechanical wear compared to solid-state drives." },
+                    { text: "They can only store up to 10 megabytes of data", isCorrect: false, rationale: "HDD capacities reach multiple terabytes." },
+                    { text: "They require manual winding of plastic ribbons", isCorrect: false, rationale: "This describes magnetic tape." },
+                    { text: "They cannot be connected to motherboard SATA ports", isCorrect: false, rationale: "HDDs connect via SATA or USB." }
+                ]
+            },
+            {
+                question: "What is a 'head crash' in a hard disk drive?",
+                options: [
+                    { text: "A catastrophic failure where the read/write head physically scratches the magnetic platter surface, permanently destroying stored data", isCorrect: true, rationale: "If an HDD is dropped or experiences a severe shock, the head can strike the spinning platter ('head crash'), ruining the disk." },
+                    { text: "When the computer monitor screen turns blank during startup", isCorrect: false, rationale: "This is a display issue." },
+                    { text: "When the CPU overheats and melts the motherboard", isCorrect: false, rationale: "This is thermal CPU throttling." },
+                    { text: "When the internet router loses broadband connection", isCorrect: false, rationale: "This is a network drop." }
+                ]
+            },
+            {
+                question: "How does direct access on an HDD differ from serial access on magnetic tape?",
+                options: [
+                    { text: "Direct access allows the read/write head to jump straight to any specific track and sector instantly, whereas serial access requires reading sequentially from the start", isCorrect: true, rationale: "Direct access provides fast random seeking to files, while serial access requires winding linearly through data." },
+                    { text: "Direct access only works underwater, while serial access works in space", isCorrect: false, rationale: "This is incorrect." },
+                    { text: "Direct access is used exclusively by magnetic tape drives", isCorrect: false, rationale: "Tape uses serial access." },
+                    { text: "There is no difference in how data is retrieved", isCorrect: false, rationale: "Their access methods are fundamentally different." }
+                ]
+            },
+
+            // 3.1.3 Portable Hard Disk Drives (21 to 30)
+            {
+                question: "What is a portable (external) Hard Disk Drive?",
+                options: [
+                    { text: "A standard hard disk drive enclosed in a protective protective casing that connects to computers externally via a USB port", isCorrect: true, rationale: "Portable HDDs package a standard drive inside an external USB enclosure for mobility and backups." },
+                    { text: "An internal motherboard RAM memory chip", isCorrect: false, rationale: "RAM is internal volatile memory." },
+                    { text: "A magnetic tape reel enclosed in a plastic vault", isCorrect: false, rationale: "This describes tape cartridges." },
+                    { text: "A polycarbonate optical CD disc read by lasers", isCorrect: false, rationale: "This describes optical media." }
+                ]
+            },
+            {
+                question: "What are the primary real-world uses of portable hard disk drives?",
+                options: [
+                    { text: "Backing up entire computer systems to prevent data loss and transferring massive files/software between different computers", isCorrect: true, rationale: "Portable HDDs are widely used for portable backups and moving large multimedia files between locations." },
+                    { text: "Printing architectural blueprints onto paper rolls", isCorrect: false, rationale: "Blueprints are printed by plotters." },
+                    { text: "Scanning supermarket barcodes at retail checkout counters", isCorrect: false, rationale: "This uses barcode scanners." },
+                    { text: "Measuring greenhouse ambient air temperature", isCorrect: false, rationale: "This uses temperature sensors." }
+                ]
+            },
+            {
+                question: "How do portable hard disk drives typically interface and connect with computers?",
+                options: [
+                    { text: "Via high-speed USB (Universal Serial Bus) cables or Thunderbolt ports", isCorrect: true, rationale: "External portable HDDs plug into computer USB ports for plug-and-play data transfer and power supply." },
+                    { text: "Via parallel printer port ribbon cables", isCorrect: false, rationale: "Parallel ports are obsolete printer connections." },
+                    { text: "Via direct optical laser fiber optic links", isCorrect: false, rationale: "Standard portable drives use USB cables." },
+                    { text: "Via acoustic audio microphone jacks", isCorrect: false, rationale: "Audio jacks carry sound, not disk data." }
+                ]
+            },
+            {
+                question: "What are the major advantages of portable hard disk drives?",
+                options: [
+                    { text: "Very large storage capacities in a portable format, easy connectivity via USB, and fast data transfer rates for moving large files", isCorrect: true, rationale: "Portable HDDs pack terabytes of storage into a pocket-sized external drive connected via USB." },
+                    { text: "Absolute immunity to physical damage when dropped on concrete", isCorrect: false, rationale: "Like fixed HDDs, portable drives contain fragile moving parts and can suffer head crashes if dropped." },
+                    { text: "Zero power consumption without needing USB cables", isCorrect: false, rationale: "Portable HDDs draw electrical power through their USB connection." },
+                    { text: "Inability to be disconnected from computers", isCorrect: false, rationale: "They are designed to be unplugged and portable." }
+                ]
+            },
+            {
+                question: "What are the major disadvantages of portable hard disk drives compared to smaller USB flash memory sticks?",
+                options: [
+                    { text: "They are physically larger and heavier than USB flash drives, contain moving parts that make them vulnerable to drop damage, and require safe ejection", isCorrect: true, rationale: "Portable HDDs are bulkier and more fragile than solid-state USB pen drives because they contain spinning mechanical disks." },
+                    { text: "They have much smaller storage capacities (under 10 megabytes)", isCorrect: false, rationale: "Portable HDDs have massive capacities (terabytes)." },
+                    { text: "They cannot be connected to laptop computers", isCorrect: false, rationale: "They connect to laptops easily via USB." },
+                    { text: "They require internal combustion engine fuel to operate", isCorrect: false, rationale: "This is absurd." }
+                ]
+            },
+            {
+                question: "Why is it important to use the 'Safely Remove Hardware' or eject feature in the operating system before unplugging a portable hard disk drive?",
+                options: [
+                    { text: "To ensure all pending write operations and cache data are fully saved to the disk and the platters spin down safely, preventing file corruption", isCorrect: true, rationale: "Unplugging abruptly while data is writing can corrupt files and damage the file system table (FAT)." },
+                    { text: "To prevent the USB cable from catching fire", isCorrect: false, rationale: "USB voltage is very low and will not catch fire." },
+                    { text: "To recharge the portable drive's internal lithium battery", isCorrect: false, rationale: "Portable HDDs run on computer USB power, not internal batteries." },
+                    { text: "To format the drive automatically into factory settings", isCorrect: false, rationale: "Ejecting does not format the drive." }
+                ]
+            },
+            {
+                question: "How do data transfer rates of portable hard disk drives generally compare to fixed internal hard disk drives?",
+                options: [
+                    { text: "Portable external HDDs often have slightly slower data transfer rates than internal fixed HDDs due to USB interface speed bottlenecks", isCorrect: true, rationale: "Internal SATA/PCIe connections are generally faster than external USB connection limits for mechanical drives." },
+                    { text: "Portable HDDs are ten times faster than internal solid-state drives", isCorrect: false, rationale: "SSDs are significantly faster than mechanical HDDs." },
+                    { text: "Portable HDDs transfer data at zero speed", isCorrect: false, rationale: "They transfer data successfully." },
+                    { text: "There is no difference in speed whatsoever", isCorrect: false, rationale: "Bus interfaces create variance." }
+                ]
+            },
+            {
+                question: "What safety precaution should users take when handling portable hard disk drives to protect their data?",
+                options: [
+                    { text: "Avoid dropping or shaking the drive during operation to prevent mechanical head crashes and platter scratching", isCorrect: true, rationale: "Physical shock while platters spin at thousands of RPM can cause the read head to crash into the disk." },
+                    { text: "Store the drive inside a powerful household refrigerator freezer", isCorrect: false, rationale: "Freezers cause condensation and electronic damage." },
+                    { text: "Wrap the drive in strong neodymium magnets for protection", isCorrect: false, rationale: "Magnets will erase magnetic storage data." },
+                    { text: "Wash the exterior casing with liquid soap and water regularly", isCorrect: false, rationale: "Water damages electronics." }
+                ]
+            },
+            {
+                question: "Which of the following scenarios is the best use case for a portable hard disk drive rather than a cloud storage service or optical disc?",
+                options: [
+                    { text: "Backing up a local computer system containing 2 terabytes of personal files quickly without needing an internet connection", isCorrect: true, rationale: "Portable HDDs allow rapid local backups of massive files without relying on slow internet broadband speeds." },
+                    { text: "Listening to a single audio track on a smartphone while jogging", isCorrect: false, rationale: "Jogging requires small flash memory or streaming." },
+                    { text: "Reading a 5-page PDF document on a public library computer", isCorrect: false, rationale: "Small files can be emailed or downloaded from cloud storage." },
+                    { text: "Scanning grocery items at a supermarket checkout", isCorrect: false, rationale: "This requires a barcode reader." }
+                ]
+            },
+            {
+                question: "Which summary best encapsulates the characteristics of magnetic storage media (Tapes, Fixed HDDs, and Portable HDDs) in IGCSE ICT Chapter 3?",
+                options: [
+                    { text: "Magnetic media use magnetic polarization on iron oxide coatings to provide high-capacity, low-cost non-volatile storage, utilizing either serial access (tapes) or direct access (HDDs)", isCorrect: true, rationale: "Magnetic storage provides economical, massive capacity using magnetism, with tapes using serial access and disks using direct access." },
+                    { text: "Magnetic media rely on semiconductor NAND flash chips with zero moving parts", isCorrect: false, rationale: "This describes solid-state media, not magnetic storage." },
+                    { text: "Magnetic media use laser beams to read microscopic polycarbonate pits and lands", isCorrect: false, rationale: "This describes optical storage." },
+                    { text: "Magnetic media are volatile primary memory chips that lose data when powered down", isCorrect: false, rationale: "Magnetic storage is non-volatile backing storage." }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const questionCounter = document.getElementById("question-counter");
+        const scoreDisplay = document.getElementById("score-display");
+        const questionBox = document.getElementById("question-box");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackBox = document.getElementById("feedback-box");
+        const nextBtn = document.getElementById("next-btn");
+        const quizContainer = document.getElementById("quiz-container");
+        const resultsContainer = document.getElementById("results-container");
+        const finalScore = document.getElementById("final-score");
+
+        function loadQuestion() {
+            answered = false;
+            feedbackBox.classList.add("hidden");
+            nextBtn.classList.add("hidden");
+            
+            const q = questions[currentQuestionIndex];
+            questionCounter.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            scoreDisplay.textContent = `Score: ${score}`;
+            questionBox.textContent = q.question;
+
+            // Shuffle options array randomly so correct answer is not always first
+            let shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+
+            optionsContainer.innerHTML = "";
+            shuffledOptions.forEach((opt) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.textContent = opt.text;
+                btn.onclick = () => selectOption(opt, shuffledOptions);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedOpt, shuffledOptions) {
+            if (answered) return;
+            answered = true;
+
+            const allOptionButtons = optionsContainer.children;
+
+            shuffledOptions.forEach((opt, idx) => {
+                allOptionButtons[idx].disabled = true;
+                if (opt.isCorrect) {
+                    allOptionButtons[idx].classList.add("correct");
+                } else if (opt === selectedOpt && !selectedOpt.isCorrect) {
+                    allOptionButtons[idx].classList.add("incorrect");
+                }
+            });
+
+            feedbackBox.classList.remove("hidden");
+            if (selectedOpt.isCorrect) {
+                score++;
+                scoreDisplay.textContent = `Score: ${score}`;
+                feedbackBox.className = "feedback-box correct-feedback";
+                feedbackBox.innerHTML = `<strong>Correct!</strong> ${selectedOpt.rationale}`;
+            } else {
+                feedbackBox.className = "feedback-box incorrect-feedback";
+                feedbackBox.innerHTML = `<strong>Incorrect.</strong> ${selectedOpt.rationale}`;
+            }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                nextBtn.textContent = "Next Question";
+            } else {
+                nextBtn.textContent = "View Results";
+            }
+            nextBtn.classList.remove("hidden");
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                quizContainer.classList.add("hidden");
+                resultsContainer.classList.remove("hidden");
+                finalScore.textContent = `You scored ${score} out of ${questions.length}`;
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultsContainer.classList.add("hidden");
+            quizContainer.classList.remove("hidden");
+            loadQuestion();
+        }
+
+        // Initialize quiz on load
+        loadQuestion();
+    </script>
+</body>
+</html>
